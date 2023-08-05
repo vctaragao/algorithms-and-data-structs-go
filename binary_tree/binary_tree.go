@@ -1,24 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/vctaragao/algorithms-and-data-structs-go/queue"
+)
 
 type Node struct {
 	data  string
 	left  *Node
 	right *Node
-}
-
-type queue []*Node
-
-func (q *queue) pop() *Node {
-	nodeQueue := *q
-
-	first := nodeQueue[0]
-	nodeQueue = nodeQueue[1:]
-
-	*q = nodeQueue
-
-	return first
 }
 
 func (n *Node) inOrderTraverse() {
@@ -55,10 +46,10 @@ func (n *Node) postOrderTraverse() {
 func (n *Node) levelOrderTraverse() []string {
 
 	nodes := []string{}
-	nodeQueue := queue{n}
+	nodeQueue := queue.Queue[*Node]{n}
 
 	for len(nodeQueue) > 0 {
-		node := nodeQueue.pop()
+		node := nodeQueue.Pop()
 		nodes = append(nodes, node.data)
 
 		if node.left != nil {
